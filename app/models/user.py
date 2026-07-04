@@ -12,7 +12,7 @@ class User(UserMixin, db.Model):
 
     email = db.Column(db.String(120), unique=True, nullable=False)
 
-    phone = db.Column(db.String(15), unique=True)
+    phone = db.Column(db.String(15), unique=True, nullable=True)
 
     password = db.Column(db.String(255), nullable=False)
 
@@ -23,4 +23,4 @@ class User(UserMixin, db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
     def __repr__(self):
-        return f"<User {self.full_name}>"
+        return f"<User {self.email}>"
