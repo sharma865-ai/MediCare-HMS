@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_user, logout_user, login_required
 
 from app import db, bcrypt
 from app.models.user import User
@@ -6,44 +7,47 @@ from app.models.user import User
 auth = Blueprint("auth", __name__)
 
 
-@auth.route("/login")
+@auth.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("auth/login.html")
-
-
-@auth.route("/register", methods=["GET", "POST"])
-def register():
 
     if request.method == "POST":
 
-        full_name = request.form.get("full_name")
         email = request.form.get("email")
-        phone = request.form.get("phone")
         password = request.form.get("password")
-        role = request.form.get("role")
 
-        # Check existing email
         user = User.query.filter_by(email=email).first()
 
-        if user:
-            flash("Email already registered!", "danger")
-            return redirect(url_for("auth.register"))
+        if user and bcrypt.check_password_hash(user.password, password):
 
-        hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
+            login_user(user)
 
-        new_user = User(
-            full_name=full_name,
-            email=email,
-            phone=phone,
-            password=hashed_password,
-            role=role
-        )
+            flash("Login Successful!", "success")
 
-        db.session.add(new_user)
-        db.session.commit()
+            # Role Based Redirect
 
-        flash("Registration Successful! Please Login.", "success")
+            if user.role == "admin":
+                return redirect("/admin/dashboard")
 
-        return redirect(url_for("auth.login"))
+            elif user.role == "doctor":
+                return redirect("/doctor/dashboard")
 
-    return render_template("auth/register.html")
+            elif user.role == "receptionist":
+                return redirect("/receptionist/dashboard")
+
+            else:
+                return redirect("/patient/dashboard")
+
+        flash("Invalid Email or Password!", "danger")
+
+    return render_template("auth/login.html")
+
+
+@auth.route("/logout")
+@login_required
+def logout():
+
+    logout_user()
+
+    flash("Logged Out Successfully!", "success")
+
+    return redirect(url_for("auth.login"))

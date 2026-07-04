@@ -29,9 +29,11 @@ def create_app():
     # Blueprints
     from app.routes.home import home
     from app.routes.auth import auth
+    from app.routes.patient import patient
 
     app.register_blueprint(home)
     app.register_blueprint(auth)
+    app.register_blueprint(patient)
 
     with app.app_context():
         from app.models.user import User
