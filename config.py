@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    SECRET_KEY = "medcore-secret-key"
+    SECRET_KEY = "MediCare-secret-key"
 
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
