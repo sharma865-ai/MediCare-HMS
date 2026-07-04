@@ -18,6 +18,9 @@ db = SQLAlchemy(app)
 def home():
     return render_template("index.html")
 
+@app.route("/login")
+def login():
+    return render_template("auth/login.html")
 
 if __name__ == "__main__":
     os.makedirs("database", exist_ok=True)
