@@ -1,18 +1,35 @@
 from app import db
 
-
 class Appointment(db.Model):
 
     __tablename__ = "appointments"
 
     id = db.Column(db.Integer, primary_key=True)
 
-    patient_name = db.Column(db.String(100))
+    patient_id = db.Column(
+        db.Integer,
+        db.ForeignKey("users.id"),
+        nullable=False
+    )
 
-    doctor_name = db.Column(db.String(100))
+    doctor_id = db.Column(
+    db.Integer,
+    db.ForeignKey("doctors.id"),
+    nullable=False
+)
 
-    appointment_date = db.Column(db.Date)
+    appointment_date = db.Column(db.Date, nullable=False)
 
-    appointment_time = db.Column(db.Time)
+    appointment_time = db.Column(db.Time, nullable=False)
 
-    status = db.Column(db.String(30), default="Pending")
+    reason = db.Column(db.Text)
+
+    status = db.Column(
+        db.String(20),
+        default="Pending"
+    )
+
+    created_at = db.Column(
+        db.DateTime,
+        server_default=db.func.now()
+    )

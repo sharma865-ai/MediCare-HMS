@@ -30,10 +30,18 @@ def create_app():
     from app.routes.home import home
     from app.routes.auth import auth
     from app.routes.patient import patient
+    from app.routes.appointment import appointment
+    from app.routes.admin import admin
+    from app.routes.doctor import doctor
+    from app.routes.department import department
 
     app.register_blueprint(home)
     app.register_blueprint(auth)
     app.register_blueprint(patient)
+    app.register_blueprint(appointment)
+    app.register_blueprint(admin)
+    app.register_blueprint(doctor)
+    app.register_blueprint(department)
 
     with app.app_context():
         from app.models.user import User

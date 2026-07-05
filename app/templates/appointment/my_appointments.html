@@ -1,0 +1,67 @@
+{% extends "layout/patient_base.html" %}
+
+{% block title %}My Appointments{% endblock %}
+
+{% block page_title %}My Appointments{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h3 class="mb-4">My Appointments</h3>
+
+<table class="table table-bordered">
+
+<thead class="table-primary">
+
+<tr>
+
+<th>ID</th>
+<th>Doctor ID</th>
+<th>Date</th>
+<th>Time</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for appointment in appointments %}
+
+<tr>
+
+<td>{{ appointment.id }}</td>
+<td>{{ appointment.doctor_id }}</td>
+<td>{{ appointment.appointment_date }}</td>
+<td>{{ appointment.appointment_time }}</td>
+<td>{{ appointment.status }}</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td colspan="5" class="text-center">
+
+No Appointments Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

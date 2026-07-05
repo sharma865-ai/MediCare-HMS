@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Book Appointment{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+
+        <h2 class="mb-4">Book Appointment</h2>
+
+        <form method="POST">
+
+        <div class="mb-3">
+
+<label>Doctor</label>
+
+<select
+name="doctor_id"
+class="form-select"
+required>
+
+<option value="">Select Doctor</option>
+
+{% for doctor in doctors %}
+
+<option value="{{ doctor.id }}">
+
+{{ doctor.full_name }} - {{ doctor.specialization }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label>Date</label>
+
+<input
+type="date"
+name="appointment_date"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label>Time</label>
+
+<input
+type="time"
+name="appointment_time"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label>Reason</label>
+
+<textarea
+name="reason"
+class="form-control"
+rows="4"></textarea>
+
+</div>
+
+<button class="btn btn-primary">
+
+Book Appointment
+
+</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
