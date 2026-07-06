@@ -5,158 +5,370 @@ Add Doctor
 {% endblock %}
 
 {% block page_title %}
-Add New Doctor
+Doctor Registration
 {% endblock %}
 
 {% block content %}
 
+<div class="container-fluid">
+
 <div class="row justify-content-center">
 
-    <div class="col-lg-8">
+<div class="col-lg-10">
 
-        <div class="card shadow">
+<div class="card shadow-lg border-0 rounded-4">
 
-            <div class="card-header bg-primary text-white">
+<div class="card-header bg-primary text-white py-3">
 
-                <h4 class="mb-0">
-                    Add Doctor
-                </h4>
+<h3 class="mb-0">
 
-            </div>
+<i class="fas fa-user-doctor"></i>
 
-            <div class="card-body">
+Doctor Registration Form
 
-                <form method="POST">
+</h3>
 
-                    <input type="hidden"
-                    name="id"
-                    value="{{ doctor.id if doctor else '' }}">
+</div>
 
-                    <div class="row">
+<div class="card-body">
 
-                        <div class="col-md-6 mb-3">
+<form method="POST" id="doctorForm">
 
-                            <label class="form-label">
-                                Full Name
-                            </label>
+<input
+type="hidden"
+name="id"
+value="{{ doctor.id if doctor else '' }}">
 
-                            <input
-    type="text"
-    name="full_name"
-    class="form-control"
-    value="{{ doctor.full_name if doctor else '' }}"
-    required>
 
-                        </div>
+<!-- ================= Basic Information ================= -->
 
-                        <div class="col-md-6 mb-3">
+<h5 class="text-primary mb-3">
 
-                            <label class="form-label">
-                                Specialization
-                            </label>
+<i class="fas fa-id-card"></i>
 
-                            <input
-    type="text"
-    name="specialization"
-    class="form-control"
-    value="{{ doctor.specialization if doctor else '' }}"
-    required>
+Basic Information
 
-                        </div>
+</h5>
 
-                    </div>
+<div class="row">
 
-                    <div class="row">
+<div class="col-md-6 mb-3">
 
-                        <div class="col-md-6 mb-3">
+<label class="form-label">
 
-                            <label>Email</label>
+Full Name
 
-                           <input
-    type="email"
-    name="email"
-    class="form-control"
-    value="{{ doctor.email if doctor else '' }}">
+</label>
 
-                        </div>
+<div class="input-group">
 
-                        <div class="col-md-6 mb-3">
+<span class="input-group-text">
 
-                            <label>Phone</label>
+<i class="fas fa-user"></i>
 
-                           <input
-    type="text"
-    name="phone"
-    class="form-control"
-    value="{{ doctor.phone if doctor else '' }}">
+</span>
 
-                        </div>
+<input
 
-                    </div>
+type="text"
 
-                    <div class="row">
+name="full_name"
 
-                        <div class="col-md-6 mb-3">
+class="form-control upper"
 
-                            <label>Qualification</label>
+placeholder="Enter Full Name"
 
-                           <input
-    type="text"
-    name="qualification"
-    class="form-control"
-    value="{{ doctor.qualification if doctor else '' }}">
+value="{{ doctor.full_name if doctor else '' }}"
 
-                        </div>
+required>
 
-                        <div class="col-md-6 mb-3">
+</div>
 
-                            <label>Experience (Years)</label>
+</div>
 
-                           <input
-    type="number"
-    name="experience"
-    class="form-control"
-    value="{{ doctor.experience if doctor else '' }}">
+<div class="col-md-6 mb-3">
 
-                        </div>
+<label class="form-label">
 
-                    </div>
+Specialization
 
-                    <div class="mb-3">
+</label>
 
-                        <label>Consultation Fee</label>
+<div class="input-group">
 
-                        <input
-    type="number"
-    step="0.01"
-    name="consultation_fee"
-    class="form-control"
-    value="{{ doctor.consultation_fee if doctor else '' }}">
+<span class="input-group-text">
 
-                    </div>
+<i class="fas fa-stethoscope"></i>
 
-                    <button
-                        type="submit"
-                        class="btn btn-primary">
+</span>
 
-                        {{ "Update Doctor" if doctor else "Save Doctor" }}
+<select
 
-                    </button>
+name="specialization"
 
-                    <a href="/admin/doctors"
-                       class="btn btn-secondary">
+class="form-select"
 
-                        Back
+required>
 
-                    </a>
+<option value="">Choose Specialization</option>
 
-                </form>
+<option>CARDIOLOGIST</option>
 
-            </div>
+<option>NEUROLOGIST</option>
 
-        </div>
+<option>ORTHOPEDIC SURGEON</option>
 
-    </div>
+<option>PEDIATRICIAN</option>
+
+<option>GYNECOLOGIST</option>
+
+<option>OBSTETRICIAN</option>
+
+<option>OPHTHALMOLOGIST</option>
+
+<option>ENT SPECIALIST</option>
+
+<option>DENTIST</option>
+
+<option>PULMONOLOGIST</option>
+
+<option>GENERAL PHYSICIAN</option>
+
+<option>DERMATOLOGIST</option>
+
+<option>ENDOCRINOLOGIST</option>
+
+<option>HEMATOLOGIST</option>
+
+<option>NEPHROLOGIST</option>
+
+<option>GASTROENTEROLOGIST</option>
+
+<option>INFECTIOUS DISEASE SPECIALIST</option>
+
+<option>PSYCHIATRIST</option>
+
+<option>ONCOLOGIST</option>
+
+<option>EMERGENCY MEDICINE SPECIALIST</option>
+
+<option>ICU / CRITICAL CARE SPECIALIST</option>
+
+<option>ANESTHESIOLOGIST</option>
+
+<option>RADIOLOGIST</option>
+
+<option>PATHOLOGIST</option>
+
+<option>PHYSIOTHERAPIST</option>
+
+<option>DIETITIAN & NUTRITIONIST</option>
+
+<option>UROLOGIST</option>
+
+<option>RHEUMATOLOGIST</option>
+
+<option>THORACIC SURGEON</option>
+
+<option>CARDIOTHORACIC SURGEON</option>
+
+</select>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= Contact ================= -->
+
+<h5 class="text-primary mt-4 mb-3">
+
+<i class="fas fa-address-book"></i>
+
+Contact Details
+
+</h5>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label>Email</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+
+<i class="fas fa-envelope"></i>
+
+</span>
+
+<input
+
+type="email"
+
+name="email"
+
+class="form-control email"
+
+placeholder="doctor@gmail.com"
+
+value="{{ doctor.email if doctor else '' }}">
+
+</div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Phone Number</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+
+<i class="fas fa-phone"></i>
+
+</span>
+
+<input
+
+type="text"
+
+maxlength="10"
+
+name="phone"
+
+class="form-control"
+
+placeholder="9876543210"
+
+value="{{ doctor.phone if doctor else '' }}">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= Qualification ================= -->
+
+<h5 class="text-primary mt-4 mb-3">
+
+<i class="fas fa-graduation-cap"></i>
+
+Professional Details
+
+</h5>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label>Qualification</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+
+<i class="fas fa-award"></i>
+
+</span>
+
+<input
+
+type="text"
+
+name="qualification"
+
+class="form-control upper"
+
+placeholder="MBBS, MD"
+
+value="{{ doctor.qualification if doctor else '' }}">
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<label>Experience</label>
+
+<input
+
+type="number"
+
+min="0"
+
+max="60"
+
+name="experience"
+
+class="form-control"
+
+value="{{ doctor.experience if doctor else '' }}">
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<label>Consultation Fee</label>
+
+<input
+
+type="number"
+
+min="100"
+
+step="50"
+
+name="consultation_fee"
+
+class="form-control"
+
+value="{{ doctor.consultation_fee if doctor else '' }}">
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="text-center">
+
+<button
+
+class="btn btn-primary btn-lg px-5"
+
+type="submit">
+
+<i class="fas fa-save"></i>
+
+Save Doctor
+
+</button>
+
+<a href="/admin/doctors"
+
+class="btn btn-secondary btn-lg">
+
+Back
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 </div>
 

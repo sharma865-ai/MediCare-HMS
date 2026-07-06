@@ -1,0 +1,136 @@
+{% extends "layout/dashboard_base.html" %}
+
+{% block title %}
+Appointment Management
+{% endblock %}
+
+{% block page_title %}
+Appointment Management
+{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-header bg-primary text-white">
+
+        <h4 class="mb-0">
+            All Appointments
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-primary">
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for appointment in appointments %}
+
+                <tr>
+
+                    <td>{{ appointment.id }}</td>
+
+                    <td>{{ appointment.patient.full_name }}</td>
+
+                    <td>{{ appointment.doctor.full_name }}</td>
+
+                    <td>{{ appointment.appointment_date }}</td>
+
+                    <td>{{ appointment.appointment_time }}</td>
+
+                    <td>{{ appointment.reason }}</td>
+
+                    <td>
+
+                        {% if appointment.status == "Pending" %}
+
+                            <span class="badge bg-warning text-dark">
+                                Pending
+                            </span>
+
+                        {% elif appointment.status == "Approved" %}
+
+                            <span class="badge bg-success">
+                                Approved
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+                                Rejected
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <a href="/admin/appointments/approve/{{ appointment.id }}"
+                           class="btn btn-success btn-sm">
+
+                            Approve
+
+                        </a>
+
+                        <a href="/admin/appointments/reject/{{ appointment.id }}"
+                           class="btn btn-warning btn-sm">
+
+                            Reject
+
+                        </a>
+
+                        <a href="/admin/appointments/delete/{{ appointment.id }}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Delete this appointment?')">
+
+                            Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="8" class="text-center">
+
+                        No Appointments Found
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

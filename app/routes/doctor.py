@@ -3,6 +3,7 @@ from flask_login import login_required
 
 from app import db
 from app.models.doctor import Doctor
+from sqlalchemy import or_
 
 doctor = Blueprint("doctor", __name__)
 
@@ -14,11 +15,30 @@ doctor = Blueprint("doctor", __name__)
 @login_required
 def doctor_list():
 
-    doctors = Doctor.query.all()
+    search = request.args.get("search")
+
+    if search:
+
+        doctors = Doctor.query.filter(
+
+            or_(
+
+                Doctor.full_name.ilike(f"%{search}%"),
+                Doctor.specialization.ilike(f"%{search}%"),
+                Doctor.email.ilike(f"%{search}%")
+
+            )
+
+        ).all()
+
+    else:
+
+        doctors = Doctor.query.all()
 
     return render_template(
         "doctor/dashboard.html",
-        doctors=doctors
+        doctors=doctors,
+        search=search
     )
 
 

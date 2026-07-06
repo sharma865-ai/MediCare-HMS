@@ -1,0 +1,314 @@
+{% extends "layout/dashboard_base.html" %}
+
+{% block title %}
+Billing System
+{% endblock %}
+
+{% block page_title %}
+Patient Billing
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+<div class="card shadow-lg border-0">
+
+<div class="card-header bg-success text-white">
+
+<h3>
+
+<i class="fas fa-file-invoice-dollar"></i>
+
+Patient Billing System
+
+</h3>
+
+</div>
+
+<div class="card-body">
+
+<form method="POST">
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label>Patient Name</label>
+
+<input
+type="text"
+name="patient_name"
+class="form-control"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Doctor Name</label>
+
+<select
+name="doctor_name"
+class="form-select"
+required>
+
+<option value="">Select Doctor</option>
+
+{% for doctor in doctors %}
+
+<option value="{{ doctor.full_name }}">
+
+{{ doctor.full_name }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-4">
+
+<label>Consultation Fee</label>
+
+<input
+
+type="number"
+
+id="consultation"
+
+name="consultation"
+
+class="form-control"
+
+value="500">
+
+</div>
+
+<div class="col-md-4">
+
+<label>Medicine Charges</label>
+
+<input
+
+type="number"
+
+id="medicine"
+
+name="medicine"
+
+value="0"
+
+class="form-control">
+
+</div>
+
+<div class="col-md-4">
+
+<label>Lab Charges</label>
+
+<input
+
+type="number"
+
+id="lab"
+
+name="lab"
+
+value="0"
+
+class="form-control">
+
+</div>
+
+</div>
+
+<br>
+
+<div class="row">
+
+<div class="col-md-4">
+
+<label>Room Charges</label>
+
+<input
+
+type="number"
+
+id="room"
+
+name="room"
+
+value="0"
+
+class="form-control">
+
+</div>
+
+<div class="col-md-4">
+
+<label>Discount (%)</label>
+
+<input
+type="number"
+id="discount"
+name="discount"
+value="0"
+class="form-control">
+
+</div>
+
+<div class="col-md-4">
+
+<label>GST (%)</label>
+
+<input
+type="number"
+id="gst"
+name="gst"
+value="18"
+class="form-control">
+
+</div>
+
+</div>
+
+<hr>
+
+<h4 class="text-success">
+
+Total Amount :
+
+₹
+
+<span id="total">
+
+0
+
+</span>
+
+</h4>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-6">
+
+<label>Payment Method</label>
+
+<select
+
+name="payment_method"
+
+class="form-select">
+
+<option>Cash</option>
+
+<option>UPI</option>
+
+<option>Credit Card</option>
+
+<option>Debit Card</option>
+
+<option>Net Banking</option>
+
+</select>
+
+</div>
+
+<div class="col-md-6">
+
+<label>Payment Status</label>
+
+<select
+
+name="payment_status"
+
+class="form-select">
+
+<option>Paid</option>
+
+<option>Pending</option>
+
+</select>
+
+</div>
+
+</div>
+
+<br>
+
+<button
+
+class="btn btn-success btn-lg">
+
+Generate Bill
+
+</button>
+
+<a
+
+href="/billing"
+
+class="btn btn-secondary btn-lg">
+
+Reset
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function calculate(){
+
+let consultation=parseFloat(document.getElementById("consultation").value)||0;
+
+let medicine=parseFloat(document.getElementById("medicine").value)||0;
+
+let lab=parseFloat(document.getElementById("lab").value)||0;
+
+let room=parseFloat(document.getElementById("room").value)||0;
+
+let discount=parseFloat(document.getElementById("discount").value)||0;
+
+let gst=parseFloat(document.getElementById("gst").value)||0;
+
+let subtotal=consultation+medicine+lab+room;
+
+let dis=subtotal*(discount/100);
+
+subtotal=subtotal-dis;
+
+let gstAmount=subtotal*(gst/100);
+
+let total=subtotal+gstAmount;
+
+document.getElementById("total").innerHTML=total.toFixed(2);
+
+}
+
+document.querySelectorAll("input").forEach(function(input){
+
+input.addEventListener("keyup",calculate);
+
+});
+
+calculate();
+
+</script>
+
+{% endblock %}

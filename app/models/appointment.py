@@ -1,5 +1,6 @@
 from app import db
 
+
 class Appointment(db.Model):
 
     __tablename__ = "appointments"
@@ -13,14 +14,20 @@ class Appointment(db.Model):
     )
 
     doctor_id = db.Column(
-    db.Integer,
-    db.ForeignKey("doctors.id"),
-    nullable=False
-)
+        db.Integer,
+        db.ForeignKey("doctors.id"),
+        nullable=False
+    )
 
-    appointment_date = db.Column(db.Date, nullable=False)
+    appointment_date = db.Column(
+        db.Date,
+        nullable=False
+    )
 
-    appointment_time = db.Column(db.Time, nullable=False)
+    appointment_time = db.Column(
+        db.Time,
+        nullable=False
+    )
 
     reason = db.Column(db.Text)
 
@@ -32,4 +39,15 @@ class Appointment(db.Model):
     created_at = db.Column(
         db.DateTime,
         server_default=db.func.now()
+    )
+
+    # Relationships
+    patient = db.relationship(
+        "User",
+        foreign_keys=[patient_id]
+    )
+
+    doctor = db.relationship(
+        "Doctor",
+        foreign_keys=[doctor_id]
     )

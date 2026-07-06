@@ -34,6 +34,7 @@ def create_app():
     from app.routes.admin import admin
     from app.routes.doctor import doctor
     from app.routes.department import department
+    from app.routes.billing import billing
 
     app.register_blueprint(home)
     app.register_blueprint(auth)
@@ -42,6 +43,7 @@ def create_app():
     app.register_blueprint(admin)
     app.register_blueprint(doctor)
     app.register_blueprint(department)
+    app.register_blueprint(billing)
 
     with app.app_context():
         from app.models.user import User
