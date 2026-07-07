@@ -1,0 +1,112 @@
+{% extends "layout/dashboard_base.html" %}
+
+{% block title %}Bed Management{% endblock %}
+{% block page_title %}Bed Management{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+<div class="card-header bg-primary text-white">
+
+<h4>
+
+{% if bed %}
+
+Edit Bed
+
+{% else %}
+
+Add Bed
+
+{% endif %}
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<form method="POST">
+
+<div class="mb-3">
+
+<label>Bed Number</label>
+
+<input
+type="text"
+name="bed_number"
+class="form-control"
+value="{{ bed.bed_number if bed else '' }}"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label>Room</label>
+
+<select
+name="room_id"
+class="form-select">
+
+{% for room in rooms %}
+
+<option
+value="{{ room.id }}"
+
+{% if bed and bed.room_id==room.id %}
+
+selected
+
+{% endif %}>
+
+{{ room.room_number }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label>Status</label>
+
+<select
+name="status"
+class="form-select">
+
+<option>Available</option>
+
+<option>Occupied</option>
+
+<option>Maintenance</option>
+
+</select>
+
+</div>
+
+<button class="btn btn-success">
+
+Save Bed
+
+</button>
+
+<a
+href="{{ url_for('bed.bed_list') }}"
+class="btn btn-secondary">
+
+Back
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+{% endblock %}
