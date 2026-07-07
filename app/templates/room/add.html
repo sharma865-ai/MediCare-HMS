@@ -1,0 +1,133 @@
+{% extends "layout/dashboard_base.html" %}
+
+{% block title %}Room Management{% endblock %}
+{% block page_title %}Room Management{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-header bg-primary text-white">
+
+        <h4>
+
+            {% if room %}
+
+            Edit Room
+
+            {% else %}
+
+            Add Room
+
+            {% endif %}
+
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Room Number</label>
+
+                    <input
+                    type="text"
+                    name="room_number"
+                    class="form-control"
+                    value="{{ room.room_number if room else '' }}"
+                    required>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Room Type</label>
+
+                    <select
+                    name="room_type"
+                    class="form-select">
+
+                        <option>General Ward</option>
+                        <option>Private Room</option>
+                        <option>ICU</option>
+                        <option>Deluxe Room</option>
+                        <option>Emergency</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <label>Floor</label>
+
+                    <input
+                    type="text"
+                    name="floor"
+                    class="form-control"
+                    value="{{ room.floor if room else '' }}">
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label>Charges</label>
+
+                    <input
+                    type="number"
+                    name="charges"
+                    class="form-control"
+                    value="{{ room.charges if room else '' }}">
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label>Status</label>
+
+                    <select
+                    name="status"
+                    class="form-select">
+
+                        <option>Available</option>
+                        <option>Occupied</option>
+                        <option>Maintenance</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button class="btn btn-success">
+
+                Save Room
+
+            </button>
+
+            <a
+            href="{{ url_for('room.room_list') }}"
+            class="btn btn-secondary">
+
+                Back
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

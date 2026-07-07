@@ -1,0 +1,141 @@
+{% extends "layout/dashboard_base.html" %}
+
+{% block title %}Rooms{% endblock %}
+{% block page_title %}Room Management{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between mb-4">
+
+    <h3>Room List</h3>
+
+    <a
+    href="{{ url_for('room.add_room') }}"
+    class="btn btn-primary">
+
+        Add Room
+
+    </a>
+
+</div>
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<table class="table table-bordered table-hover">
+
+<thead class="table-primary">
+
+<tr>
+
+<th>ID</th>
+
+<th>Room No</th>
+
+<th>Type</th>
+
+<th>Floor</th>
+
+<th>Charges</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for room in rooms %}
+
+<tr>
+
+<td>{{ room.id }}</td>
+
+<td>{{ room.room_number }}</td>
+
+<td>{{ room.room_type }}</td>
+
+<td>{{ room.floor }}</td>
+
+<td>₹{{ room.charges }}</td>
+
+<td>
+
+{% if room.status=="Available" %}
+
+<span class="badge bg-success">
+
+Available
+
+</span>
+
+{% elif room.status=="Occupied" %}
+
+<span class="badge bg-danger">
+
+Occupied
+
+</span>
+
+{% else %}
+
+<span class="badge bg-warning text-dark">
+
+Maintenance
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<a
+href="{{ url_for('room.edit_room', room_id=room.id) }}"
+class="btn btn-warning btn-sm">
+
+Edit
+
+</a>
+
+<a
+href="{{ url_for('room.delete_room', room_id=room.id) }}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Delete Room?')">
+
+Delete
+
+</a>
+
+</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td colspan="7" class="text-center">
+
+No Rooms Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}
