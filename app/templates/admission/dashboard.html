@@ -1,0 +1,95 @@
+{% extends "layout/dashboard_base.html" %}
+
+{% block title %}Admissions{% endblock %}
+{% block page_title %}Admission Management{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between mb-4">
+
+<h3>Admission List</h3>
+
+<a href="{{ url_for('admission.add_admission') }}"
+class="btn btn-primary">
+
+Admit Patient
+
+</a>
+
+</div>
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<table class="table table-bordered table-hover">
+
+<thead class="table-primary">
+
+<tr>
+
+<th>ID</th>
+<th>Patient</th>
+<th>Doctor</th>
+<th>Room</th>
+<th>Bed</th>
+<th>Admission Date</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for admission in admissions %}
+
+<tr>
+
+<td>{{ admission.id }}</td>
+
+<td>{{ admission.patient.full_name }}</td>
+
+<td>{{ admission.doctor.full_name }}</td>
+
+<td>{{ admission.room.room_number }}</td>
+
+<td>{{ admission.bed.bed_number }}</td>
+
+<td>{{ admission.admission_date }}</td>
+
+<td>
+
+<span class="badge bg-success">
+
+{{ admission.status }}
+
+</span>
+
+</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td colspan="7" class="text-center">
+
+No Admissions Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

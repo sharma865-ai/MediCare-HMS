@@ -37,6 +37,9 @@ def create_app():
     from app.routes.billing import billing
     from app.routes.room import room
     from app.routes.bed import bed
+    from app.routes.report import report
+    from app.routes.operation_theatre import operation_theatre
+    from app.routes.admission import admission
 
     app.register_blueprint(home)
     app.register_blueprint(auth)
@@ -48,6 +51,9 @@ def create_app():
     app.register_blueprint(billing)
     app.register_blueprint(room)
     app.register_blueprint(bed)
+    app.register_blueprint(report)
+    app.register_blueprint(operation_theatre)
+    app.register_blueprint(admission)
 
     with app.app_context():
         from app.models.user import User

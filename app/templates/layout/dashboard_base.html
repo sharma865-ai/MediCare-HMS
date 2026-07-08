@@ -28,11 +28,13 @@ href="{{ url_for('static', filename='css/style.css') }}">
             MediCare HMS
         </h3>
 
-        <a href="/admin/dashboard" class="d-block text-white text-decoration-none mb-3">
+       {% if current_user.role == "admin" %}
+
+<a href="{{ url_for('admin.admin_dashboard') }}" class="d-block text-white text-decoration-none mb-3">
     <i class="bi bi-speedometer2"></i> Dashboard
 </a>
 
-<a href="/admin/doctors" class="d-block text-white text-decoration-none mb-3">
+<a href="{{ url_for('doctor.doctor_list') }}" class="d-block text-white text-decoration-none mb-3">
     <i class="bi bi-person-vcard"></i> Doctors
 </a>
 
@@ -55,15 +57,56 @@ href="{{ url_for('static', filename='css/style.css') }}">
 <a href="/admin/rooms" class="d-block text-white text-decoration-none mb-3">
     <i class="bi bi-door-open"></i> Rooms
 </a>
- 
-<a href="/admin/beds"
-class="d-block text-white text-decoration-none mb-3">
 
-<i class="bi bi-grid-3x3-gap"></i>
-
-Beds
-
+<a href="/admin/beds" class="d-block text-white text-decoration-none mb-3">
+    <i class="bi bi-grid-3x3-gap"></i> Beds
 </a>
+
+<a href="/admin/operation-theatres" class="d-block text-white text-decoration-none mb-3">
+    <i class="bi bi-hospital"></i> Operation Theatre
+</a>
+
+<a href="/admin/reports" class="d-block text-white text-decoration-none mb-3">
+    <i class="bi bi-bar-chart"></i> Reports
+</a>
+
+<a href="/admin/admissions" class="d-block text-white text-decoration-none mb-3">
+    <i class="bi bi-hospital-fill"></i> Admissions
+</a>
+
+{% elif current_user.role == "doctor" %}
+
+<a href="{{ url_for('doctor.doctor_dashboard') }}" class="d-block text-white text-decoration-none mb-3">
+    <i class="bi bi-speedometer2"></i> Dashboard
+</a>
+
+<a href="/doctor/dashboard" class="d-block text-white text-decoration-none mb-3">
+    <i class="bi bi-calendar-check"></i> My Appointments
+</a>
+
+<a href="/doctor/dashboard" class="d-block text-white text-decoration-none mb-3">
+    <i class="bi bi-people"></i> My Patients
+</a>
+
+<a href="/admin/reports" class="d-block text-white text-decoration-none mb-3">
+    <i class="bi bi-bar-chart"></i> Reports
+</a>
+
+{% elif current_user.role == "patient" %}
+
+<a href="/patient/dashboard" class="d-block text-white text-decoration-none mb-3">
+    <i class="bi bi-speedometer2"></i> Dashboard
+</a>
+
+<a href="/appointments/book" class="d-block text-white text-decoration-none mb-3">
+    <i class="bi bi-calendar-check"></i> Book Appointment
+</a>
+
+<a href="/appointments/my" class="d-block text-white text-decoration-none mb-3">
+    <i class="bi bi-clock-history"></i> My Appointments
+</a>
+
+{% endif %}
 
         <hr>
 

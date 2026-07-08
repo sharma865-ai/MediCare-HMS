@@ -1,0 +1,223 @@
+{% extends "layout/dashboard_base.html" %}
+
+{% block title %}
+Hospital Reports
+{% endblock %}
+
+{% block page_title %}
+Hospital Facility Report
+{% endblock %}
+
+{% block content %}
+
+<div class="row mb-4">
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h5>Total Rooms</h5>
+
+                <h2>{{ room_count }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h5>Total Beds</h5>
+
+                <h2>{{ bed_count }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h5>ICU Rooms</h5>
+
+                <h2>{{ icu_count }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h5>Operation Theatre</h5>
+
+                <h2>{{ ot_count }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+
+<h3 class="mb-3">Room Report</h3>
+
+<div class="card shadow mb-5">
+
+<div class="card-body">
+
+<table class="table table-bordered table-hover">
+
+<thead class="table-primary">
+
+<tr>
+
+<th>ID</th>
+<th>Room No</th>
+<th>Type</th>
+<th>Floor</th>
+<th>Charges</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for room in rooms %}
+
+<tr>
+
+<td>{{ room.id }}</td>
+
+<td>{{ room.room_number }}</td>
+
+<td>{{ room.room_type }}</td>
+
+<td>{{ room.floor }}</td>
+
+<td>₹{{ room.charges }}</td>
+
+<td>{{ room.status }}</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td colspan="6" class="text-center">
+
+No Rooms Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<hr>
+
+<h3 class="mb-3">Bed Report</h3>
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<table class="table table-bordered table-hover">
+
+<thead class="table-success">
+
+<tr>
+
+<th>ID</th>
+<th>Bed No</th>
+<th>Room</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for bed in beds %}
+
+<tr>
+
+<td>{{ bed.id }}</td>
+
+<td>{{ bed.bed_number }}</td>
+
+<td>{{ bed.room.room_number }}</td>
+
+<td>{{ bed.status }}</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td colspan="4" class="text-center">
+
+No Beds Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="text-end">
+
+<button
+onclick="window.print()"
+class="btn btn-success">
+
+Print Report
+
+</button>
+
+</div>
+
+{% endblock %}

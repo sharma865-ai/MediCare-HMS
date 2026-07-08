@@ -1,0 +1,82 @@
+{% extends "layout/dashboard_base.html" %}
+
+{% block title %}Operation Theatre{% endblock %}
+{% block page_title %}Operation Theatre{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between mb-4">
+
+<h3>Operation Theatre List</h3>
+
+<a
+href="{{ url_for('operation_theatre.add_theatre') }}"
+class="btn btn-primary">
+
+Add OT
+
+</a>
+
+</div>
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<table class="table table-bordered table-hover">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>ID</th>
+<th>OT Number</th>
+<th>Theatre Name</th>
+<th>Doctor</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for theatre in theatres %}
+
+<tr>
+
+<td>{{ theatre.id }}</td>
+
+<td>{{ theatre.ot_number }}</td>
+
+<td>{{ theatre.theatre_name }}</td>
+
+<td>{{ theatre.doctor_name }}</td>
+
+<td>{{ theatre.status }}</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td colspan="5" class="text-center">
+
+No Operation Theatre Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends "layout/dashboard_base.html" %}
+
+{% block title %}Admission{% endblock %}
+{% block page_title %}Patient Admission{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+<div class="card-header bg-primary text-white">
+
+<h4>Admit Patient</h4>
+
+</div>
+
+<div class="card-body">
+
+<form method="POST">
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label>Patient</label>
+
+<select name="patient_id" class="form-select" required>
+
+{% for patient in patients %}
+
+<option value="{{ patient.id }}">
+{{ patient.full_name }}
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Doctor</label>
+
+<select name="doctor_id" class="form-select" required>
+
+{% for doctor in doctors %}
+
+<option value="{{ doctor.id }}">
+{{ doctor.full_name }}
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label>Room</label>
+
+<select name="room_id" class="form-select" required>
+
+{% for room in rooms %}
+
+<option value="{{ room.id }}">
+{{ room.room_number }} - {{ room.room_type }}
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Bed</label>
+
+<select name="bed_id" class="form-select" required>
+
+{% for bed in beds %}
+
+<option value="{{ bed.id }}">
+{{ bed.bed_number }}
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+</div>
+
+<div class="mb-3">
+
+<label>Admission Date</label>
+
+<input
+type="date"
+name="admission_date"
+class="form-control"
+required>
+
+</div>
+
+<button class="btn btn-success">
+
+Admit Patient
+
+</button>
+
+<a href="{{ url_for('admission.admission_list') }}"
+class="btn btn-secondary">
+
+Back
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+{% endblock %}

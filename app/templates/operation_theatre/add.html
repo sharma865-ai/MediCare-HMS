@@ -1,0 +1,90 @@
+{% extends "layout/dashboard_base.html" %}
+
+{% block title %}Operation Theatre{% endblock %}
+{% block page_title %}Operation Theatre{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+<div class="card-header bg-primary text-white">
+
+<h4>Add Operation Theatre</h4>
+
+</div>
+
+<div class="card-body">
+
+<form method="POST">
+
+<div class="mb-3">
+
+<label>OT Number</label>
+
+<input
+type="text"
+name="ot_number"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label>Theatre Name</label>
+
+<input
+type="text"
+name="theatre_name"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label>Doctor Name</label>
+
+<input
+type="text"
+name="doctor_name"
+class="form-control">
+
+</div>
+
+<div class="mb-3">
+
+<label>Status</label>
+
+<select
+name="status"
+class="form-select">
+
+<option>Available</option>
+<option>Occupied</option>
+<option>Cleaning</option>
+
+</select>
+
+</div>
+
+<button class="btn btn-success">
+
+Save
+
+</button>
+
+<a href="{{ url_for('operation_theatre.theatre_list') }}"
+class="btn btn-secondary">
+
+Back
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+{% endblock %}

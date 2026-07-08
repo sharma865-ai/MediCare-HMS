@@ -1,5 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
+from flask_login import current_user
+from app.models.user import User
+from app.models.appointment import Appointment
 
 from app import db
 from app.models.doctor import Doctor
@@ -7,6 +10,34 @@ from sqlalchemy import or_
 
 doctor = Blueprint("doctor", __name__)
 
+# =========================
+# Doctor Dashboard
+# =========================
+@doctor.route("/doctor/dashboard")
+@login_required
+def doctor_dashboard():
+
+    patient_count = User.query.filter_by(role="patient").count()
+
+    appointment_count = Appointment.query.count()
+
+    prescription_count = 0
+
+    emergency_count = 0
+
+    appointments = Appointment.query.order_by(
+        Appointment.appointment_date.desc()
+    ).limit(10).all()
+ 
+    return render_template(
+    "doctor/doctor_dashboard.html",
+        patient_count=patient_count,
+        appointment_count=appointment_count,
+        prescription_count=prescription_count,
+        emergency_count=emergency_count,
+        appointments=appointments,
+        current_user=current_user
+    )
 
 # =========================
 # Doctor List
