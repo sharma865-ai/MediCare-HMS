@@ -1,8 +1,20 @@
 {% extends "layout/dashboard_base.html" %}
 
-{% block title %}Add Department{% endblock %}
+{% block title %}
+{% if department %}
+Edit Department
+{% else %}
+Add Department
+{% endif %}
+{% endblock %}
 
-{% block page_title %}Add Department{% endblock %}
+{% block page_title %}
+{% if department %}
+Edit Department
+{% else %}
+Add Department
+{% endif %}
+{% endblock %}
 
 {% block content %}
 
@@ -14,7 +26,15 @@
 
 <div class="card-header bg-primary text-white">
 
-<h4>Add Department</h4>
+<h4>
+
+{% if department %}
+Edit Department
+{% else %}
+Add Department
+{% endif %}
+
+</h4>
 
 </div>
 
@@ -22,18 +42,19 @@
 
 <form method="POST">
 
-<input type="hidden"
-name="id"
-value="{{ department.id if department else '' }}">
-
 <div class="mb-3">
 
-<label>Department Name</label>
+<label class="form-label">
+
+Department Name
+
+</label>
 
 <input
 type="text"
 name="name"
 class="form-control"
+placeholder="Enter Department Name"
 value="{{ department.name if department else '' }}"
 required>
 
@@ -41,27 +62,147 @@ required>
 
 <div class="mb-3">
 
-<label>Description</label>
+<label class="form-label">
 
-<textarea
-name="description"
+Department Code
+
+</label>
+
+<input
+type="text"
+name="department_code"
 class="form-control"
-rows="4">{{ department.description if department else '' }}</textarea>
+placeholder="Example : CARD01"
+value="{{ department.department_code if department else '' }}"
+required>
 
 </div>
 
-<button class="btn btn-primary">
+<div class="mb-3">
 
-{{ "Update Department" if department else "Save Department" }}
+<label class="form-label">
+
+Head Doctor
+
+</label>
+
+<select
+name="head_doctor"
+class="form-select"
+required>
+
+<option value="">
+
+Select Head Doctor
+
+</option>
+
+{% for doctor in doctors %}
+
+<option
+value="{{ doctor.full_name }}"
+{% if department and department.head_doctor==doctor.full_name %}
+selected
+{% endif %}
+>
+
+{{ doctor.full_name }}
+
+({{ doctor.specialization }})
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Status
+
+</label>
+
+<select
+name="status"
+class="form-select">
+
+<option
+value="Active"
+{% if department and department.status=="Active" %}
+selected
+{% endif %}
+>
+
+Active
+
+</option>
+
+<option
+value="Inactive"
+{% if department and department.status=="Inactive" %}
+selected
+{% endif %}
+>
+
+Inactive
+
+</option>
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Description
+
+</label>
+
+<textarea
+name="description"
+rows="4"
+class="form-control"
+placeholder="Department Description...">{{ department.description if department else '' }}</textarea>
+
+</div>
+
+<div class="d-flex">
+
+<button
+type="submit"
+class="btn btn-primary">
+
+{% if department %}
+
+<i class="bi bi-pencil-square"></i>
+
+Update Department
+
+{% else %}
+
+<i class="bi bi-save"></i>
+
+Save Department
+
+{% endif %}
 
 </button>
 
-<a href="/admin/departments"
-class="btn btn-secondary">
+<a
+href="{{ url_for('department.department_dashboard') }}"
+class="btn btn-secondary ms-2">
 
 Back
 
 </a>
+
+</div>
 
 </form>
 

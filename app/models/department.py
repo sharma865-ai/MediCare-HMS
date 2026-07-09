@@ -1,4 +1,6 @@
+from datetime import datetime
 from app import db
+
 
 class Department(db.Model):
 
@@ -8,11 +10,27 @@ class Department(db.Model):
 
     name = db.Column(db.String(100), nullable=False, unique=True)
 
+    department_code = db.Column(
+        db.String(20),
+        unique=True,
+        nullable=False
+    )
+
+    head_doctor = db.Column(
+        db.String(100),
+        nullable=False
+    )
+
     description = db.Column(db.Text)
+
+    status = db.Column(
+        db.String(20),
+        default="Active"
+    )
 
     created_at = db.Column(
         db.DateTime,
-        server_default=db.func.now()
+        default=datetime.utcnow
     )
 
     def __repr__(self):

@@ -1,0 +1,132 @@
+{% extends "layout/dashboard_base.html" %}
+
+{% block title %}
+Receptionist Dashboard
+{% endblock %}
+
+{% block page_title %}
+Receptionist Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-md-3">
+        <div class="card bg-primary text-white shadow">
+            <div class="card-body text-center">
+                <h5>Total Patients</h5>
+                <h2>{{ patient_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-success text-white shadow">
+            <div class="card-body text-center">
+                <h5>Today's Appointments</h5>
+                <h2>{{ appointment_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark shadow">
+            <div class="card-body text-center">
+                <h5>Total Doctors</h5>
+                <h2>{{ doctor_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-danger text-white shadow">
+            <div class="card-body text-center">
+                <h5>Total Billing</h5>
+                <h2>₹{{ billing_total }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<br>
+
+<div class="card shadow">
+
+<div class="card-header bg-primary text-white">
+
+<h4>Today's Appointments</h4>
+
+</div>
+
+<div class="card-body">
+
+<table class="table table-bordered table-hover">
+
+<thead class="table-primary">
+
+<tr>
+
+<th>ID</th>
+<th>Patient</th>
+<th>Doctor</th>
+<th>Date</th>
+<th>Time</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for appointment in appointments %}
+
+<tr>
+
+<td>{{ appointment.id }}</td>
+
+<td>{{ appointment.patient.full_name }}</td>
+
+<td>{{ appointment.doctor.full_name }}</td>
+
+<td>{{ appointment.appointment_date }}</td>
+
+<td>{{ appointment.appointment_time }}</td>
+
+<td>
+
+<span class="badge bg-success">
+
+{{ appointment.status }}
+
+</span>
+
+</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td colspan="6" class="text-center">
+
+No Appointments Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

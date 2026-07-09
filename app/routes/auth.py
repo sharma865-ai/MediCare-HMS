@@ -63,12 +63,27 @@ def register():
         password = request.form.get("password")
         role = request.form.get("role")
 
-        user = User.query.filter_by(email=email).first()
-
-        if user:
+        # Check duplicate email
+        if User.query.filter_by(email=email).first():
             flash("Email already registered!", "danger")
             return redirect(url_for("auth.register"))
 
+        # Check duplicate phone
+        if User.query.filter_by(phone=phone).first():
+            flash("Phone number already registered!", "danger")
+            return redirect(url_for("auth.register"))
+
+        # Password Validation
+        if len(password) < 6:
+            flash("Password must be at least 6 characters!", "warning")
+            return redirect(url_for("auth.register"))
+
+        # Phone Validation
+        if len(phone) != 10 or not phone.isdigit():
+            flash("Enter a valid 10-digit phone number!", "warning")
+            return redirect(url_for("auth.register"))
+
+        # Hash Password
         hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
 
         new_user = User(
@@ -83,7 +98,6 @@ def register():
         db.session.commit()
 
         flash("Registration Successful!", "success")
-
         return redirect(url_for("auth.login"))
 
     return render_template("auth/register.html")

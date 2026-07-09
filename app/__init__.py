@@ -26,7 +26,10 @@ def create_app():
 
     login_manager.login_view = "auth.login"
 
+    # ==========================
     # Blueprints
+    # ==========================
+
     from app.routes.home import home
     from app.routes.auth import auth
     from app.routes.patient import patient
@@ -40,6 +43,7 @@ def create_app():
     from app.routes.report import report
     from app.routes.operation_theatre import operation_theatre
     from app.routes.admission import admission
+    from app.routes.receptionist import receptionist
 
     app.register_blueprint(home)
     app.register_blueprint(auth)
@@ -54,9 +58,22 @@ def create_app():
     app.register_blueprint(report)
     app.register_blueprint(operation_theatre)
     app.register_blueprint(admission)
+    app.register_blueprint(receptionist)
+
+    # ==========================
+    # Database Models
+    # ==========================
 
     with app.app_context():
+
         from app.models.user import User
+        from app.models.department import Department
+        from app.models.doctor import Doctor
+        from app.models.room import Room
+        from app.models.bed import Bed
+        from app.models.billing import Billing
+        from app.models.admission import Admission
+        from app.models.operation_theatre import OperationTheatre
 
         @login_manager.user_loader
         def load_user(user_id):

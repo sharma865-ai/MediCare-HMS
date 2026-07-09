@@ -92,6 +92,62 @@ href="{{ url_for('static', filename='css/style.css') }}">
     <i class="bi bi-bar-chart"></i> Reports
 </a>
 
+{% elif current_user.role == "receptionist" %}
+
+<a href="{{ url_for('receptionist.receptionist_dashboard') }}"
+class="d-block text-white text-decoration-none mb-3">
+
+<i class="bi bi-speedometer2"></i>
+
+Dashboard
+
+</a>
+
+<a href="{{ url_for('admin.patient_list') }}"
+class="d-block text-white text-decoration-none mb-3">
+
+<i class="bi bi-person-plus-fill"></i>
+
+Patients
+
+</a>
+
+<a href="{{ url_for('admin.appointment_list') }}"
+class="d-block text-white text-decoration-none mb-3">
+
+<i class="bi bi-calendar-check-fill"></i>
+
+Appointments
+
+</a>
+
+<a href="{{ url_for('doctor.doctor_list') }}"
+class="d-block text-white text-decoration-none mb-3">
+
+<i class="bi bi-person-badge-fill"></i>
+
+Doctors
+
+</a>
+
+<a href="{{ url_for('billing.billing_page') }}"
+class="d-block text-white text-decoration-none mb-3">
+
+<i class="bi bi-cash-stack"></i>
+
+Billing
+
+</a>
+
+<a href="{{ url_for('room.room_list') }}"
+class="d-block text-white text-decoration-none mb-3">
+
+<i class="bi bi-door-open"></i>
+
+Rooms
+
+</a>
+
 {% elif current_user.role == "patient" %}
 
 <a href="/patient/dashboard" class="d-block text-white text-decoration-none mb-3">

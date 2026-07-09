@@ -1,35 +1,132 @@
 {% extends "layout/dashboard_base.html" %}
 
-{% block title %}Departments{% endblock %}
+{% block title %}
+Department Management
+{% endblock %}
 
-{% block page_title %}Department Management{% endblock %}
+{% block page_title %}
+Department Management
+{% endblock %}
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<!-- Dashboard Cards -->
 
-    <h3>Departments</h3>
+<div class="row mb-4">
 
-    <a href="{{ url_for('department.add_department') }}" class="btn btn-primary">
-        <i class="bi bi-plus-circle"></i> Add Department
-    </a>
+<div class="col-md-4">
+
+<div class="card shadow border-0 bg-primary text-white">
+
+<div class="card-body text-center">
+
+<h5>Total Departments</h5>
+
+<h2>{{ total_departments }}</h2>
 
 </div>
 
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="card shadow border-0 bg-success text-white">
+
+<div class="card-body text-center">
+
+<h5>Active Departments</h5>
+
+<h2>{{ active_departments }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="card shadow border-0 bg-danger text-white">
+
+<div class="card-body text-center">
+
+<h5>Inactive Departments</h5>
+
+<h2>{{ inactive_departments }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Department Table -->
+
 <div class="card shadow">
+
+<div class="card-header bg-white">
+
+<div class="d-flex justify-content-between align-items-center">
+
+<h4 class="mb-0">
+
+Department List
+
+</h4>
+
+<a
+href="{{ url_for('department.add_department') }}"
+class="btn btn-primary">
+
+<i class="bi bi-plus-circle"></i>
+
+Add Department
+
+</a>
+
+</div>
+
+</div>
 
 <div class="card-body">
 
-<table class="table table-bordered table-hover">
+<input
+type="text"
+id="searchInput"
+class="form-control mb-3"
+placeholder="Search Department...">
 
-<thead class="table-primary">
+<table
+class="table table-bordered table-hover align-middle"
+id="departmentTable">
+
+<thead class="table-dark">
 
 <tr>
 
 <th>ID</th>
-<th>Department Name</th>
+
+<th>Name</th>
+
+<th>Code</th>
+
+<th>Head Doctor</th>
+
+<th>Status</th>
+
+<th>Created</th>
+
 <th>Description</th>
-<th>Action</th>
+
+<th width="180">
+
+Action
+
+</th>
 
 </tr>
 
@@ -41,26 +138,84 @@
 
 <tr>
 
-<td>{{ department.id }}</td>
+<td>
 
-<td>{{ department.name }}</td>
+{{ department.id }}
 
-<td>{{ department.description }}</td>
+</td>
 
 <td>
 
-<a href="{{ url_for('department.edit_department', department_id=department.id) }}"
+{{ department.name }}
+
+</td>
+
+<td>
+
+<span class="badge bg-secondary">
+
+{{ department.department_code }}
+
+</span>
+
+</td>
+
+<td>
+
+{{ department.head_doctor }}
+
+</td>
+
+<td>
+
+{% if department.status=="Active" %}
+
+<span class="badge bg-success">
+
+Active
+
+</span>
+
+{% else %}
+
+<span class="badge bg-danger">
+
+Inactive
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+{{ department.created_at.strftime("%d-%m-%Y") }}
+
+</td>
+
+<td>
+
+{{ department.description }}
+
+</td>
+
+<td>
+
+<a
+href="{{ url_for('department.edit_department', department_id=department.id) }}"
 class="btn btn-warning btn-sm">
 
-Edit
+<i class="bi bi-pencil-square"></i>
 
 </a>
 
-<a href="{{ url_for('department.delete_department', department_id=department.id) }}"
+<a
+href="{{ url_for('department.delete_department', department_id=department.id) }}"
 class="btn btn-danger btn-sm"
-onclick="return confirm('Delete Department?')">
+onclick="return confirm('Delete this Department?')">
 
-Delete
+<i class="bi bi-trash"></i>
 
 </a>
 
@@ -72,9 +227,9 @@ Delete
 
 <tr>
 
-<td colspan="4" class="text-center">
+<td colspan="8" class="text-center text-muted">
 
-No Departments Found
+No Department Found
 
 </td>
 
@@ -89,5 +244,39 @@ No Departments Found
 </div>
 
 </div>
+
+<script>
+
+document.getElementById("searchInput").addEventListener("keyup", function(){
+
+let filter=this.value.toUpperCase();
+
+let rows=document.querySelector("#departmentTable tbody").rows;
+
+for(let i=0;i<rows.length;i++){
+
+let name=rows[i].cells[1].innerText.toUpperCase();
+
+let code=rows[i].cells[2].innerText.toUpperCase();
+
+rows[i].style.display=
+
+(name.indexOf(filter)>-1 ||
+
+code.indexOf(filter)>-1)
+
+?
+
+""
+
+:
+
+"none";
+
+}
+
+});
+
+</script>
 
 {% endblock %}
